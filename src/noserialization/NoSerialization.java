@@ -1,3 +1,5 @@
+package noserialization;
+
 import java.io.*;
 
 public class NoSerialization {

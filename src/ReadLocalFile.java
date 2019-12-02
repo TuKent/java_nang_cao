@@ -1,6 +1,7 @@
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ReadLocalFile {
 
@@ -16,11 +17,11 @@ public class ReadLocalFile {
         System.out.println(str3);
 
         downloadResource("https://raw.githubusercontent.com/nam-long/learning-java/master/resources/cadao.txt",
-                "E:\\abc\\test.txt");
+                "E:\\abc\\test2.txt");
 
 //        String imageUrl = "";
 //        downloadImage(imageUrl, "D:\\test.png");
-
+//        listFiles("E:\\java_nang_cao");
     }
 
     public static String read(String filename) throws IOException {
@@ -217,4 +218,28 @@ public class ReadLocalFile {
         fos.close();
     }
 
+    public static ArrayList<String> listPaths = new ArrayList<>();
+
+    public static void listFiles(String folderPath) throws IOException {
+
+        File folder = new File(folderPath);
+
+        File[] files = folder.listFiles();
+        if (files.length == 0) {
+            listPaths.add(folder.getCanonicalPath());
+            System.out.println(folder.getCanonicalPath());
+        }
+
+        for (File f : files) {
+            if (f.isFile()) {
+                listPaths.add(f.getCanonicalPath());
+                System.out.println(f.getCanonicalPath());
+            } else {
+                listFiles(f.getPath());
+            }
+        }
+    }
+    public static void removeDuplicatedFiles(String folderPath, String filename) {
+
+    }
 }
