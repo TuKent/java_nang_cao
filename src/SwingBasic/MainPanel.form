@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="SwingBasic.MainPanel">
+  <grid id="27dc6" binding="rootPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="df582" class="javax.swing.JButton" binding="btnSave">
+        <constraints border-constraint="South"/>
+        <properties>
+          <text value="ClickHere"/>
+        </properties>
+      </component>
+      <component id="3c61c" class="javax.swing.JLabel" binding="txtContent">
+        <constraints border-constraint="West"/>
+        <properties>
+          <horizontalAlignment value="0"/>
+          <text value="Text"/>
+        </properties>
+      </component>
+      <grid id="bc1e1" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="d97af" class="javax.swing.JLabel">
+            <constraints border-constraint="West"/>
+            <properties>
+              <text value="File Name"/>
+            </properties>
+          </component>
+          <component id="df528" class="javax.swing.JTextField" binding="txtFileName">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="e7324" class="javax.swing.JButton" binding="btnBrowse">
+            <constraints border-constraint="East"/>
+            <properties>
+              <text value="Button"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

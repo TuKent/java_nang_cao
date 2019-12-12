@@ -22,6 +22,9 @@ public class ReadLocalFile {
 //        String imageUrl = "";
 //        downloadImage(imageUrl, "D:\\test.png");
 //        listFiles("E:\\java_nang_cao");
+        String string = read("E:\\java_nang_cao\\src\\ReadLocalFile.java");
+        System.out.print(string);
+
     }
 
     public static String read(String filename) throws IOException {
@@ -239,7 +242,6 @@ public class ReadLocalFile {
             }
         }
     }
-    public static void removeDuplicatedFiles(String folderPath, String filename) {
 
-    }
+
 }
