@@ -12,7 +12,8 @@ import java.util.Calendar;
 
 import static java.lang.Thread.sleep;
 
-public class DigitalClock implements Runnable{
+public class DigitalClock implements Runnable {
+
     private JPanel rootPanel;
     private JLabel lblTime;
     private JButton btnStopWatch;
@@ -30,9 +31,9 @@ public class DigitalClock implements Runnable{
     public JLabel lblMillisecondsSF;
     private JButton btnReset;
 
-    int hours=0;
-    int minutes=0;
-    int seconds=0;
+    int hours = 0;
+    int minutes = 0;
+    int seconds = 0;
 
     public int millisecondsSW = 0;
     public int secondsSW = 0;
@@ -41,12 +42,9 @@ public class DigitalClock implements Runnable{
 
     static boolean state = true;
 
-
-
-
-
     public DigitalClock() throws IOException, FontFormatException {
-        String filename = "E:\\java_nang_cao\\resources\\font\\DIGITALDREAM.ttf";
+
+        String filename = ".\\resources\\font\\DIGITALDREAM.ttf";
 
         Font fontST = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
 
@@ -58,10 +56,10 @@ public class DigitalClock implements Runnable{
 
         fontST = fontST.deriveFont(Font.BOLD, 36);
 
-        HoursSW = HoursSW.deriveFont(Font.BOLD,36);
-        MinutesSW = MinutesSW.deriveFont(Font.BOLD,36);
-        SecondsSW = SecondsSW.deriveFont(Font.BOLD,36);
-        MillisecondsSW = MillisecondsSW.deriveFont(Font.BOLD,26);
+        HoursSW = HoursSW.deriveFont(Font.BOLD, 36);
+        MinutesSW = MinutesSW.deriveFont(Font.BOLD, 36);
+        SecondsSW = SecondsSW.deriveFont(Font.BOLD, 36);
+        MillisecondsSW = MillisecondsSW.deriveFont(Font.BOLD, 26);
 
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -74,7 +72,6 @@ public class DigitalClock implements Runnable{
         ge.registerFont(MillisecondsSW);
 
 
-
         lblTime.setFont(fontST);
 
         lblHoursSW.setFont(HoursSW);
@@ -85,11 +82,10 @@ public class DigitalClock implements Runnable{
         Thread t = new Thread(this);
         t.start();
 
-        lblMillisecondsSF.setText(" : "+millisecondsSW);
-        lblSecondsSW.setText(" : "+secondsSW);
-        lblMinutesSW.setText(": "+minutesSW);
-        lblHoursSW.setText(""+hoursSW);
-
+        lblMillisecondsSF.setText(" : " + millisecondsSW);
+        lblSecondsSW.setText(" : " + secondsSW);
+        lblMinutesSW.setText(": " + minutesSW);
+        lblHoursSW.setText("" + hoursSW);
 
 
         FiledClock.setBackground(Color.BLACK);
@@ -108,8 +104,6 @@ public class DigitalClock implements Runnable{
             }
         });
 
-
-
         btnStartSW.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,44 +111,35 @@ public class DigitalClock implements Runnable{
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        while (true)
-                        {
-                            if (state == true)
-                            {
-                                try
-                                {
+                        while (true) {
+                            if (state == true) {
+                                try {
                                     sleep(1);
-                                    if (millisecondsSW > 1000)
-                                    {
-                                        millisecondsSW  = 0;
-                                        secondsSW ++;
+                                    if (millisecondsSW > 1000) {
+                                        millisecondsSW = 0;
+                                        secondsSW++;
                                     }
-                                    if (secondsSW > 60)
-                                    {
+                                    if (secondsSW > 60) {
                                         millisecondsSW = 0;
                                         secondsSW = 0;
-                                        minutesSW ++;
+                                        minutesSW++;
                                     }
-                                    if (minutesSW > 60)
-                                    {
+                                    if (minutesSW > 60) {
                                         millisecondsSW = 0;
                                         secondsSW = 0;
                                         minutesSW = 0;
-                                        hoursSW ++;
+                                        hoursSW++;
                                     }
-                                    lblMillisecondsSF.setText(" : "+millisecondsSW);
+                                    lblMillisecondsSF.setText(" : " + millisecondsSW);
                                     millisecondsSW++;
-                                    lblSecondsSW.setText(" : "+secondsSW);
-                                    lblMinutesSW.setText(": "+minutesSW);
-                                    lblHoursSW.setText(""+hoursSW);
+                                    lblSecondsSW.setText(" : " + secondsSW);
+                                    lblMinutesSW.setText(": " + minutesSW);
+                                    lblHoursSW.setText("" + hoursSW);
 
-                                }catch (Exception e)
-                                {
+                                } catch (Exception e) {
 
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 break;
                             }
                         }
@@ -163,13 +148,14 @@ public class DigitalClock implements Runnable{
                 thread.start();
             }
         });
+
         btnStopSW.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 state = false;
-
             }
         });
+
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -179,38 +165,31 @@ public class DigitalClock implements Runnable{
                 minutesSW = 0;
                 hoursSW = 0;
 
-                lblMillisecondsSF.setText(" : "+millisecondsSW);
-                lblSecondsSW.setText(" : "+secondsSW);
-                lblMinutesSW.setText(": "+minutesSW);
-                lblHoursSW.setText(""+hoursSW);
-
-
+                lblMillisecondsSF.setText(" : " + millisecondsSW);
+                lblSecondsSW.setText(" : " + secondsSW);
+                lblMinutesSW.setText(": " + minutesSW);
+                lblHoursSW.setText("" + hoursSW);
             }
         });
-
     }
 
     public JPanel getRootPanel() {
         return rootPanel;
     }
 
-
     @Override
     public void run() {
-        try
-        {
-            while (true)
-            {
+        try {
+            while (true) {
                 Calendar cal = Calendar.getInstance();
                 hours = cal.get(Calendar.HOUR_OF_DAY);
                 minutes = cal.get(Calendar.MINUTE);
                 seconds = cal.get(Calendar.SECOND);
 
-                lblTime.setText("" + hours + ":" + minutes +":"+seconds);
+                lblTime.setText("" + hours + ":" + minutes + ":" + seconds);
             }
+        } catch (Exception e) {
         }
-        catch (Exception e)
-        {}
     }
 }
 

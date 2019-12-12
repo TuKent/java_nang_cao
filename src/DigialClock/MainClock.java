@@ -5,9 +5,9 @@ import java.awt.*;
 import java.io.IOException;
 
 public class MainClock {
-    public static void main(String[] args) throws IOException, FontFormatException  {
+    public static void main(String[] args) throws IOException, FontFormatException {
         //Create door OOP
-        JFrame jFrame= new JFrame();
+        JFrame jFrame = new JFrame();
 
         jFrame.setContentPane(new DigitalClock().getRootPanel());
 
@@ -16,7 +16,7 @@ public class MainClock {
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //Kích thước của sổ
-        jFrame.setPreferredSize(new Dimension(650,250));
+        jFrame.setPreferredSize(new Dimension(650, 250));
 
         //Đưa ra giữa màn hình
         jFrame.setLocationRelativeTo(null);
@@ -26,7 +26,5 @@ public class MainClock {
 
         //Hiển thị cửa sổ
         jFrame.setVisible(true);
-
-
     }
 }
