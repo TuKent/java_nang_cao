@@ -8,7 +8,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import static java.lang.Thread.sleep;
 
@@ -18,7 +20,7 @@ public class DigitalClock implements Runnable {
     private JLabel lblTime;
     private JButton btnStopWatch;
     private JTabbedPane tabbedPane1;
-    private JPanel FiledClock;
+    private JPanel PanelST;
     private JPanel PanelSW;
     private JButton btnStartSW;
     private JButton btnStopSW;
@@ -30,6 +32,9 @@ public class DigitalClock implements Runnable {
     public JLabel lblSecondsSW;
     public JLabel lblMillisecondsSF;
     private JButton btnReset;
+    private JPanel PanelAC;
+    private JLabel lblST;
+    private JPanel PanelContentST;
 
     int hours = 0;
     int minutes = 0;
@@ -40,45 +45,53 @@ public class DigitalClock implements Runnable {
     public int minutesSW = 0;
     public int hoursSW = 0;
 
-    static boolean state = true;
+    boolean state = false;
 
     public DigitalClock() throws IOException, FontFormatException {
 
         String filename = ".\\resources\\font\\DIGITALDREAM.ttf";
-
-        Font fontST = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
-
+        //SHOW TIME
+        Font fontDC = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
+        //STOP WATCH
         Font HoursSW = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
         Font MinutesSW = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
         Font SecondsSW = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
         Font MillisecondsSW = Font.createFont(Font.TRUETYPE_FONT, new File(filename));
+        //ALARMS
+        Font fontAL = Font.createFont(Font.TRUETYPE_FONT,new File(filename));
 
 
-        fontST = fontST.deriveFont(Font.BOLD, 36);
-
+        //SHOW TIME
+        fontDC = fontDC.deriveFont(Font.BOLD, 36);
+        //STOP WATCH
         HoursSW = HoursSW.deriveFont(Font.BOLD, 36);
         MinutesSW = MinutesSW.deriveFont(Font.BOLD, 36);
         SecondsSW = SecondsSW.deriveFont(Font.BOLD, 36);
         MillisecondsSW = MillisecondsSW.deriveFont(Font.BOLD, 26);
+        //ALARMS
+        fontAL = fontAL.deriveFont(Font.BOLD, 12);
 
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        //DIGITAL CLOCK
-        ge.registerFont(fontST);
+        //SHOW TIME
+        ge.registerFont(fontDC);
         //STOP WATCH
         ge.registerFont(HoursSW);
         ge.registerFont(MinutesSW);
         ge.registerFont(SecondsSW);
         ge.registerFont(MillisecondsSW);
+        //ALARMS
+        ge.registerFont(fontAL);
 
-
-        lblTime.setFont(fontST);
-
+        //SHOW TIME
+        lblTime.setFont(fontDC);
+        //STOP WATCH
         lblHoursSW.setFont(HoursSW);
         lblMinutesSW.setFont(MinutesSW);
         lblSecondsSW.setFont(SecondsSW);
         lblMillisecondsSF.setFont(MillisecondsSW);
-
+        //ALARMS
+        lblST.setFont(fontAL);
         Thread t = new Thread(this);
         t.start();
 
@@ -87,35 +100,34 @@ public class DigitalClock implements Runnable {
         lblMinutesSW.setText(": " + minutesSW);
         lblHoursSW.setText("" + hoursSW);
 
-
-        FiledClock.setBackground(Color.BLACK);
+        PanelST.setBackground(Color.BLACK);
         lblTime.setForeground(Color.CYAN);
 
-        tabbedPane1.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-                PanelSWTop.setBackground(Color.yellow);
-                PanelSWCenter.setBackground(Color.BLACK);
-                lblMillisecondsSF.setForeground(Color.CYAN);
-                lblSecondsSW.setForeground(Color.CYAN);
-                lblMinutesSW.setForeground(Color.CYAN);
-                lblHoursSW.setForeground(Color.CYAN);
-            }
-        });
+        PanelSWTop.setBackground(Color.BLACK);
+        PanelSWCenter.setBackground(Color.BLACK);
+        lblMillisecondsSF.setForeground(Color.CYAN);
+        lblSecondsSW.setForeground(Color.CYAN);
+        lblMinutesSW.setForeground(Color.CYAN);
+        lblHoursSW.setForeground(Color.CYAN);
+
+        lblST.setForeground(Color.CYAN);
 
         btnStartSW.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (state)
+                {
+                    return;
+                }
                 state = true;
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         while (true) {
-                            if (state == true) {
+                            if (state) {
                                 try {
-                                    sleep(1);
-                                    if (millisecondsSW > 1000) {
+
+                                    if (millisecondsSW >= 99) {
                                         millisecondsSW = 0;
                                         secondsSW++;
                                     }
@@ -132,6 +144,7 @@ public class DigitalClock implements Runnable {
                                     }
                                     lblMillisecondsSF.setText(" : " + millisecondsSW);
                                     millisecondsSW++;
+                                    sleep(10);
                                     lblSecondsSW.setText(" : " + secondsSW);
                                     lblMinutesSW.setText(": " + minutesSW);
                                     lblHoursSW.setText("" + hoursSW);
@@ -171,6 +184,18 @@ public class DigitalClock implements Runnable {
                 lblHoursSW.setText("" + hoursSW);
             }
         });
+        PanelAC.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                Date date = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                lblST.setText(simpleDateFormat.format(date));
+
+            }
+        });
+        lblST.addComponentListener(new ComponentAdapter() {
+        });
     }
 
     public JPanel getRootPanel() {
@@ -187,6 +212,7 @@ public class DigitalClock implements Runnable {
                 seconds = cal.get(Calendar.SECOND);
 
                 lblTime.setText("" + hours + ":" + minutes + ":" + seconds);
+                sleep(50);
             }
         } catch (Exception e) {
         }

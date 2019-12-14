@@ -16,7 +16,7 @@ public class MainClock {
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //Kích thước của sổ
-        jFrame.setPreferredSize(new Dimension(650, 250));
+        jFrame.setPreferredSize(new Dimension(450, 150));
 
         //Đưa ra giữa màn hình
         jFrame.setLocationRelativeTo(null);
